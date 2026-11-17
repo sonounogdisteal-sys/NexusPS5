@@ -5,12 +5,12 @@ not affiliated with Sony Interactive Entertainment. The project does not run
 Sony's `SceShellUI.elf`, include proprietary firmware or assets, or currently
 emulate PS5 applications.
 
-Milestone 2 adds an independently written, native graphical shell prototype:
-a Games/Media home view, directional focus, keyboard/mouse/gamepad input, and
-a Control Center overlay. All displayed application entries are labeled local
-samples; selecting Play does not execute a guest application. The emulator
-frontend (`nexus`) remains separate from the shell application
-(`nexus_system_shell_app`).
+The native graphical shell now includes a researched Welcome Hub-style home,
+a local Game Library and Game Hub, functional host Settings, editable local
+widgets, keyboard/mouse/controller navigation, and a separate animated
+Control Center. These are independently written UI prototypes; local entries
+do not launch guest applications. The emulator frontend (`nexus`) remains
+separate from the shell application (`nexus_system_shell_app`).
 
 ## Build and test
 
@@ -26,9 +26,25 @@ ctest --test-dir build --output-on-failure
 ./build/nexus_system_shell_app
 ```
 
-Navigate with arrow keys or a mapped controller D-pad. Enter/A selects,
-Escape/B goes back, and P/controller Guide opens the Control Center. Q exits.
-The screenshot smoke test writes home and overlay captures under `build/`.
+Navigate with arrow keys or a mapped controller D-pad. Enter/controller A
+selects, Escape/controller B goes back, P/controller Guide opens the Control
+Center, and Q exits. On the Welcome Hub, O/controller Start enters widget edit
+mode, X toggles widget visibility, M/controller X moves a widget, brackets or
+controller shoulders resize it, and B/controller Y changes the local
+background. These mappings are NEXUS host actions, not PlayStation firmware
+input.
+
+The shell reads `nexusps5.conf` and `nexus-welcome.layout` in the current
+directory by default. Override them with `--config PATH` and `--layout PATH`.
+Settings persist host fullscreen, host window size, local profile label, and
+high-contrast preference. Other settings explicitly report as unsupported.
+Widget layout and background selection are local-only; there is no PlayStation
+Network integration.
+
+The headless screenshot test writes Home, selected Home, Game Hub, Game
+Library, Settings, and Control Center captures under `build/`. See
+[DEVELOPMENT.md](DEVELOPMENT.md) for a desktop test procedure and known
+hardware-validation limits.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md), [ROADMAP.md](ROADMAP.md),
 [SCE_SHELL_RESEARCH.md](SCE_SHELL_RESEARCH.md), and

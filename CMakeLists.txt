@@ -8,6 +8,7 @@ find_package(SDL2_ttf 2.0.18 CONFIG REQUIRED)
 
 add_library(nexus_core
     src/core/config.cpp
+    src/core/file_utils.cpp
     src/core/logger.cpp
 )
 target_include_directories(nexus_core PUBLIC include)
@@ -16,17 +17,21 @@ target_compile_features(nexus_core PUBLIC cxx_std_20)
 add_library(nexus_ui
     src/ui/component.cpp
     src/ui/focus_manager.cpp
+    src/ui/icon.cpp
 )
 target_include_directories(nexus_ui PUBLIC include)
 target_compile_features(nexus_ui PUBLIC cxx_std_20)
 
 add_library(nexus_system_shell
     src/shell/control_center.cpp
+    src/shell/game_hub.cpp
+    src/shell/settings_screen.cpp
     src/shell/system_shell.cpp
+    src/shell/welcome_hub.cpp
 )
 target_include_directories(nexus_system_shell PUBLIC include)
 target_compile_features(nexus_system_shell PUBLIC cxx_std_20)
-target_link_libraries(nexus_system_shell PUBLIC nexus_ui)
+target_link_libraries(nexus_system_shell PUBLIC nexus_core nexus_ui)
 
 add_library(nexus_sdl
     src/platform/sdl_canvas.cpp

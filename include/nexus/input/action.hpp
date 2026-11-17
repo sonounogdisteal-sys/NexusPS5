@@ -10,6 +10,12 @@ enum class Action {
     accept,
     back,
     ps_button,
+    options,
+    place_widget,
+    toggle_widget,
+    resize_smaller,
+    resize_larger,
+    cycle_background,
     quit,
 };
 

@@ -9,11 +9,16 @@ Status reflects code in this repository; planned items are not implemented.
    input, reusable UI components/focus management, Home screen structure, and
    a separate Control Center overlay. Exact visual fidelity and Vulkan are not
    complete.
-3. **PS5 shell research — in progress:** expand version/region-specific
-   evidence and verify exact Home/Control Center geometry and behavior against
-   public official screenshots or demonstrations. Unknowns remain documented.
-4. **Shell reconstruction — ongoing:** iterate on measured visual differences;
-   add documented screens only when backed by research and tested local data.
+3. **PS5 shell research — ongoing:** the visual target is the Home/Welcome Hub
+   interface shown in Sony's September 2024 rollout material. The precise
+   firmware build is not established by that reference. Later appearance
+   features are not mixed into the implementation. Pixel geometry and
+   Control Center animation timing remain unverified.
+4. **Shell reconstruction — prototype expanded:** separate Game Library,
+   Game Hub, Settings, Welcome Hub, and Control Center views; local editable
+   widgets and layout persistence; host Settings for window size, fullscreen,
+   profile label, and contrast; input mappings and transition timing. Visual
+   fidelity and real-desktop/controller validation remain ongoing.
 5. **Core emulation primitives:** define guest memory and executable parsing
    from legally usable homebrew test inputs; do not claim game execution.
 6. **Compatibility services:** add independently tested process, thread, and

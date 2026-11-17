@@ -32,6 +32,21 @@ void test_keyboard_mapping() {
         "P should map to the PS button action"
     );
     require(
+        nexus::platform::SdlInput::keyboard_action(SDLK_o, action) &&
+            action == nexus::input::Action::options,
+        "O should map to widget edit options"
+    );
+    require(
+        nexus::platform::SdlInput::keyboard_action(SDLK_m, action) &&
+            action == nexus::input::Action::place_widget,
+        "M should map to widget placement mode"
+    );
+    require(
+        nexus::platform::SdlInput::keyboard_action(SDLK_x, action) &&
+            action == nexus::input::Action::toggle_widget,
+        "X should map to widget visibility toggle"
+    );
+    require(
         !nexus::platform::SdlInput::keyboard_action(SDLK_z, action),
         "unmapped keys should be ignored"
     );
@@ -60,8 +75,21 @@ void test_gamepad_mapping() {
     );
     event.button = SDL_CONTROLLER_BUTTON_X;
     require(
-        !nexus::platform::SdlInput::controller_action(event, action),
-        "unmapped gamepad buttons should be ignored"
+        nexus::platform::SdlInput::controller_action(event, action) &&
+            action == nexus::input::Action::place_widget,
+        "gamepad Square should enter widget placement mode"
+    );
+    event.button = SDL_CONTROLLER_BUTTON_START;
+    require(
+        nexus::platform::SdlInput::controller_action(event, action) &&
+            action == nexus::input::Action::options,
+        "gamepad Start should enter widget edit options"
+    );
+    event.button = SDL_CONTROLLER_BUTTON_Y;
+    require(
+        nexus::platform::SdlInput::controller_action(event, action) &&
+            action == nexus::input::Action::cycle_background,
+        "gamepad Y should cycle Welcome Hub backgrounds"
     );
 }
 

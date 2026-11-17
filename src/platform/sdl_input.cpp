@@ -45,6 +45,12 @@ bool SdlInput::keyboard_action(SDL_Keycode key, input::Action& action) {
     case SDLK_SPACE: action = input::Action::accept; return true;
     case SDLK_ESCAPE: action = input::Action::back; return true;
     case SDLK_p: action = input::Action::ps_button; return true;
+    case SDLK_o: action = input::Action::options; return true;
+    case SDLK_m: action = input::Action::place_widget; return true;
+    case SDLK_x: action = input::Action::toggle_widget; return true;
+    case SDLK_LEFTBRACKET: action = input::Action::resize_smaller; return true;
+    case SDLK_RIGHTBRACKET: action = input::Action::resize_larger; return true;
+    case SDLK_b: action = input::Action::cycle_background; return true;
     case SDLK_q: action = input::Action::quit; return true;
     default: return false;
     }
@@ -62,7 +68,11 @@ bool SdlInput::controller_action(
     case SDL_CONTROLLER_BUTTON_A: action = input::Action::accept; return true;
     case SDL_CONTROLLER_BUTTON_B: action = input::Action::back; return true;
     case SDL_CONTROLLER_BUTTON_GUIDE: action = input::Action::ps_button; return true;
-    case SDL_CONTROLLER_BUTTON_START: action = input::Action::back; return true;
+    case SDL_CONTROLLER_BUTTON_START: action = input::Action::options; return true;
+    case SDL_CONTROLLER_BUTTON_X: action = input::Action::place_widget; return true;
+    case SDL_CONTROLLER_BUTTON_LEFTSHOULDER: action = input::Action::resize_smaller; return true;
+    case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER: action = input::Action::resize_larger; return true;
+    case SDL_CONTROLLER_BUTTON_Y: action = input::Action::cycle_background; return true;
     default: return false;
     }
 }

@@ -15,6 +15,17 @@ Unknown details remain marked unknown instead of being guessed.
 - NEXUS intends to implement a new shell, not execute or reproduce Sony
   binaries. No Sony executable, firmware, or proprietary assets are used.
 
+## Reconstruction target
+
+The visual target is the PS5 Home/Welcome Hub interface presented in Sony's
+September 2024 Welcome Hub rollout announcement and its accompanying public
+screenshot. That identifies the feature generation, not an exact firmware
+build: the source does not identify a system software version number or
+region-specific build. NEXUS does not claim to reproduce a particular firmware
+revision. Later features described on currently maintained support pages,
+such as system-wide console-generation appearance themes, are not treated as
+part of the 2024 reference unless independently verified in that reference.
+
 ## Verified components
 
 ### Control Center
@@ -28,7 +39,7 @@ Evidence: [Sony support: Customize the PS5 Control Center](https://www.playstati
 | Position and dimensions | It is displayed over the current game. Exact coordinates and dimensions are unknown from the text documentation. |
 | Controls | Home, Switcher, Notifications, Game Base, Music, Sound, Mic, Accessories, Profile, and Power are documented. Availability is context-dependent. |
 | Cards | Sony documents cards for trophy progress/challenges/activities, voice chat and broadcast, and music controls. |
-| Navigation | The icon/control area is focusable; Options enters rearrangement mode, X places a moved icon, and hidden controls can be restored. |
+| Navigation | The icon/control area is focusable; Options enters rearrangement mode, X places a moved icon, and controls can be moved to a Hidden Controls area. Some controls cannot be hidden. |
 | Visuals | Exact colors, typography, artwork, icon geometry, and background treatment are not specified in the support article. |
 | Animation and return behavior | Not specified by the reviewed text source. |
 | Dependencies | Sony console software, active game/context, and corresponding system services; internal service contracts are unknown. |
@@ -42,7 +53,7 @@ Evidence: [Sony support: Customize the Welcome hub](https://www.playstation.com/
 |---|---|
 | Purpose and position | Personalized area available on the PS5 home screen, customized with widgets and backgrounds. |
 | Widgets | Friend Activity, Friends Online, Community Activity, Messages, Console Storage, Trophies, PlayStation Store, PlayStation Plus, News, Accessibility, Media Gallery, Battery, and Wishlist are documented; availability may vary by region. |
-| Layout | Widgets can be added/removed, moved, resized, and arranged through presets or a custom preset. Controls documented include X, Square, and L1/R1. |
+| Layout | Widgets can be added/removed, moved, resized, and arranged through presets or a custom preset. Sony documents X to toggle visibility, Square to begin a move, arrows to position, X to place, and L1/R1 to resize. |
 | Background | Can use provided designs, game or Media Gallery images; slideshow and showcase modes are documented. |
 | Dimensions and exact placement | The feature supports resizing and positioning, but exact grid dimensions, widget sizes, margins, and screen coordinates are unknown from the reviewed text. |
 | Colors, typography, iconography, animation | Not sufficiently specified in reviewed text. The 2024 announcement mentions animated background designs, without specifying their motion. |
@@ -69,20 +80,36 @@ not evidence that every PS5 Home state has this exact layout. Its component
 positions, dimensions, and color values remain approximate until measured from
 version- and region-specific source captures.
 
+### Settings and accessibility
+
+Sony's [accessibility settings support page](https://www.playstation.com/en-us/support/hardware/ps5-accessibility-settings/)
+confirms Settings > Accessibility and documents display/text, controller,
+zoom, screen-reader, caption, and audio accessibility options. Sony's
+[resolution support page](https://www.playstation.com/en-us/support/hardware/ps5-4k-resolution-guide/)
+confirms Settings > Screen and Video > Video Output and describes display
+resolution options. The Control Center support article also directs users to
+Settings > Sound > Audio Output. These sources document navigation and
+behavior, not a measured Settings screen layout. NEXUS uses the requested
+category names, implements only host settings it can apply, and labels
+console/guest settings as unsupported.
+
 ### Prototype decisions and limitations
 
-The milestone-2 shell uses separate Games and Media tabs, a horizontal row of
-sample entries, a selected-entry detail area, and a Welcome Hub-like group of
-local widgets. The top-level arrangement follows the inspected official
-Welcome Hub screenshot, while dimensions, colors, and exact content remain an
-approximation. The artwork and catalog entries are original local samples,
-not Sony or game assets. The Play action explicitly reports that guest
-execution is unavailable.
+The shell uses separate Games and Media navigation, a horizontal row of
+sample entries, selected-entry artwork, a local Game Library and Game Hub,
+Settings, and a Welcome Hub-like set of local widgets. Widget editing supports
+visibility, grid position, size, and original local backgrounds with file
+persistence. Welcome Hub controls follow the publicly documented interaction
+pattern, but NEXUS's grid and screen positions are its own approximation.
+Artwork and catalog entries are original local samples, not Sony or game
+assets. Play explicitly reports that guest execution is unavailable.
 
-The Control Center prototype keeps the documented controls distinct from the
-documented contextual cards. Its exact card ordering, overlay dimensions,
-transparency, and transitions are **not verified** against an official
-interface screenshot in this milestone. They are subject to visual
+The Control Center prototype keeps documented controls distinct from
+contextual cards and supports PS/Guide activation, horizontal focus, local
+icon ordering, and an animated open/close transition. Hiding controls and
+service-dependent actions are not implemented. Its exact card ordering,
+overlay dimensions, transparency, and transition timing are **not verified**
+against an official interface screenshot. They remain subject to visual
 reconstruction after collecting a version- and region-specific official
 reference.
 
@@ -139,6 +166,8 @@ frame-analyzed for this implementation.
   fetch returned HTTP 403 in this research environment; content not verified.
 - Sony Support, Control Center: <https://www.playstation.com/en-gb/support/games/customize-ps5-control-center/>
 - Sony Support, Welcome hub: <https://www.playstation.com/en-us/support/account/welcome-hub/>
+- Sony Support, Accessibility settings: <https://www.playstation.com/en-us/support/hardware/ps5-accessibility-settings/>
+- Sony Support, Screen and Video resolution: <https://www.playstation.com/en-us/support/hardware/ps5-4k-resolution-guide/>
 - Sony, PS5 features: <https://www.playstation.com/en-th/ps5/ps5-features/>
 - Sony, Welcome Hub screenshot in the September 2024 system update announcement:
   <https://blog.playstation.com/tachyon/2024/09/2424168de190dae0ea094bf824184b7ec6c53e77.jpg?fit=1024%2C1024>

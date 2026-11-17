@@ -19,13 +19,13 @@ struct Component {
     bool filled = false;
     bool accent = false;
 
-    void render(Canvas& canvas, bool focused) const;
+    void render(Canvas& canvas, bool focused, int vertical_offset = 0) const;
 };
 
 class Scene {
 public:
     void set_components(std::vector<Component> components);
-    void render(Canvas& canvas) const;
+    void render(Canvas& canvas, int vertical_offset = 0) const;
 
     [[nodiscard]] bool move(Direction direction);
     [[nodiscard]] bool focus_at(int x, int y);
