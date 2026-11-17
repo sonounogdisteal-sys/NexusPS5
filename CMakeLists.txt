@@ -6,6 +6,12 @@ include(CTest)
 find_package(SDL2 2.0.18 CONFIG REQUIRED)
 find_package(SDL2_ttf 2.0.18 CONFIG REQUIRED)
 
+if(MSVC)
+    set(NEXUS_STRICT_WARNING_OPTIONS /W4 /WX)
+else()
+    set(NEXUS_STRICT_WARNING_OPTIONS -Wall -Wextra -Wpedantic -Werror)
+endif()
+
 add_library(nexus_core
     src/core/config.cpp
     src/core/file_utils.cpp
@@ -13,6 +19,19 @@ add_library(nexus_core
 )
 target_include_directories(nexus_core PUBLIC include)
 target_compile_features(nexus_core PUBLIC cxx_std_20)
+
+add_library(nexus_guest
+    src/guest/cpu.cpp
+    src/guest/elf.cpp
+    src/guest/executor.cpp
+    src/guest/kernel.cpp
+    src/guest/memory.cpp
+    src/runtime/application_events.cpp
+)
+target_include_directories(nexus_guest PUBLIC include)
+target_compile_features(nexus_guest PUBLIC cxx_std_20)
+target_link_libraries(nexus_guest PUBLIC nexus_core)
+target_compile_options(nexus_guest PRIVATE ${NEXUS_STRICT_WARNING_OPTIONS})
 
 add_library(nexus_ui
     src/ui/component.cpp
@@ -57,6 +76,11 @@ if(BUILD_TESTING)
     add_executable(nexus_core_tests tests/core_tests.cpp)
     target_link_libraries(nexus_core_tests PRIVATE nexus_core)
     add_test(NAME nexus_core_tests COMMAND nexus_core_tests)
+
+    add_executable(nexus_guest_tests tests/guest_tests.cpp)
+    target_link_libraries(nexus_guest_tests PRIVATE nexus_guest)
+    target_compile_options(nexus_guest_tests PRIVATE ${NEXUS_STRICT_WARNING_OPTIONS})
+    add_test(NAME nexus_guest_tests COMMAND nexus_guest_tests)
 
     add_executable(nexus_ui_tests tests/ui_tests.cpp)
     target_link_libraries(nexus_ui_tests PRIVATE nexus_system_shell)

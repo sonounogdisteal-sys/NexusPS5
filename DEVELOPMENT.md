@@ -23,6 +23,16 @@ cmake --build build
 ctest --test-dir build --output-on-failure
 ```
 
+The guest library and its tests are compiled with `-Wall -Wextra -Wpedantic
+-Werror`. For the same strict flags on every target, configure with:
+
+```sh
+cmake -S . -B build-strict -DBUILD_TESTING=ON \
+  -DCMAKE_CXX_FLAGS="-Wall -Wextra -Wpedantic -Werror"
+cmake --build build-strict --parallel 2
+ctest --test-dir build-strict --output-on-failure
+```
+
 The CI smoke test uses SDL's dummy video/audio drivers and software renderer.
 It creates an SDL window and renders Home, a selected Home entry, Game Hub,
 Game Library, Settings, and Control Center, writing BMP captures into the
@@ -75,6 +85,28 @@ automated dummy-driver smoke test does not substitute for these manual checks:
 No physical controller or interactive desktop validation is claimed from the
 headless CI run. The current SDL path uses mapped game-controller buttons; it
 does not guarantee that every controller exposes a PS/Guide button.
+
+## Guest execution tests
+
+`nexus_guest_tests` creates an original x86-64 ELF64 `ET_EXEC` fixture
+in-memory; it does not depend on host assemblers, proprietary files, firmware,
+or downloaded binaries. The guest instructions perform integer arithmetic,
+compare and branch, call/return through a stack, store and reload memory, and
+return an exit value. The test target also checks page permissions, mapping
+bounds, malformed ELF handling, section inspection, instruction limits,
+process/thread transitions, synchronization, and shell-facing runtime events.
+
+Run the guest tests alone with:
+
+```sh
+ctest --test-dir build -R nexus_guest_tests --output-on-failure
+```
+
+`nexus_guest` is a library foundation, not a command-line application loader.
+It accepts only the ELF64 x86-64 `ET_EXEC` subset and instruction encodings
+listed in [ARCHITECTURE.md](ARCHITECTURE.md). A top-level guest `RET` to the
+NEXUS return sentinel ends the test program; Linux/PS5 syscalls, ELF dynamic
+linking, relocations, SELF/PRX, and PS5 compatibility are not provided.
 
 ## Current behavior
 

@@ -19,10 +19,14 @@ Status reflects code in this repository; planned items are not implemented.
    widgets and layout persistence; host Settings for window size, fullscreen,
    profile label, and contrast; input mappings and transition timing. Visual
    fidelity and real-desktop/controller validation remain ongoing.
-5. **Core emulation primitives:** define guest memory and executable parsing
-   from legally usable homebrew test inputs; do not claim game execution.
-6. **Compatibility services:** add independently tested process, thread, and
-   synchronization behavior.
+5. **Independent guest execution foundation — initial subset complete:**
+   page-permission guest memory, a documented x86-64 interpreter subset,
+   static x86-64 ELF64 `ET_EXEC` loading, bounded test-binary execution, and
+   initial process/thread/runtime-event abstractions. No PS5 executable or
+   game compatibility is claimed; expansion and validation remain future work.
+6. **Compatibility services:** add independently tested filesystem,
+   process, thread, and synchronization behavior; investigate publicly
+   documented interfaces and keep unknown PS5 behavior marked unknown.
 7. **Guest graphics, audio, and input:** design backend abstractions, then add
    Vulkan as an optional host backend. Current shell drawing is native SDL2.
 8. **Integration and validation:** integrate a shell runtime with actual
