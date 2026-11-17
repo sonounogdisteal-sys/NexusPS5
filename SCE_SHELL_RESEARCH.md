@@ -60,6 +60,66 @@ selection geometry, animation, and differences across system software
 generations are not established by the reviewed text. The Games and Media
 sections' pixel-level structure is **unknown**.
 
+The [Welcome Hub launch article screenshot](https://blog.playstation.com/tachyon/2024/09/2424168de190dae0ea094bf824184b7ec6c53e77.jpg?fit=1024%2C1024)
+was visually inspected at 1024x576. It shows Games/Media at the upper left,
+system indicators at the upper right, a horizontal row of application tiles,
+a selected Welcome tile and label, and a dark illustrated background with
+widget cards occupying much of the lower area. This is one Welcome Hub view,
+not evidence that every PS5 Home state has this exact layout. Its component
+positions, dimensions, and color values remain approximate until measured from
+version- and region-specific source captures.
+
+### Prototype decisions and limitations
+
+The milestone-2 shell uses separate Games and Media tabs, a horizontal row of
+sample entries, a selected-entry detail area, and a Welcome Hub-like group of
+local widgets. The top-level arrangement follows the inspected official
+Welcome Hub screenshot, while dimensions, colors, and exact content remain an
+approximation. The artwork and catalog entries are original local samples,
+not Sony or game assets. The Play action explicitly reports that guest
+execution is unavailable.
+
+The Control Center prototype keeps the documented controls distinct from the
+documented contextual cards. Its exact card ordering, overlay dimensions,
+transparency, and transitions are **not verified** against an official
+interface screenshot in this milestone. They are subject to visual
+reconstruction after collecting a version- and region-specific official
+reference.
+
+## Graphics and input foundation
+
+Research: [SDL2 Video](https://wiki.libsdl.org/SDL2/CategoryVideo),
+[SDL2 2D Renderer](https://wiki.libsdl.org/SDL2/CategoryRender),
+[SDL2 Vulkan helpers](https://wiki.libsdl.org/SDL2/CategoryVulkan), and
+[SDL2 Game Controller](https://wiki.libsdl.org/SDL2/CategoryGameController).
+SDL2 provides cross-platform window/event abstractions, standardized gamepad
+buttons, a 2D renderer, and helper functions for creating Vulkan surfaces.
+NEXUS currently uses its SDL 2D renderer only; Vulkan is not initialized.
+The initial headless renderer path permits UI tests without a GPU.
+
+GLFW was considered: it provides cross-platform window/input and explicit
+Vulkan surface helpers ([GLFW input guide](https://www.glfw.org/docs/latest/input),
+[Vulkan reference](https://www.glfw.org/docs/latest/group__vulkan.html)); it
+would leave the 2D UI renderer and text rasterization to separate libraries.
+SDL3 was also considered; its [video](https://wiki.libsdl.org/SDL3/CategoryVideo),
+[Vulkan](https://wiki.libsdl.org/SDL3/CategoryVulkan), and
+[gamepad](https://wiki.libsdl.org/SDL3/CategoryGamepad) APIs provide similar
+cross-platform primitives. SDL2 was selected for this milestone because its
+2D renderer, controller abstraction, Vulkan window helpers, and software
+rendering path can cover the first UI without a Vulkan SDK/GPU. The tested
+Codespaces packages are SDL2 2.30.0 and SDL_ttf 2.22.0. The tradeoff is that
+the current renderer is only a UI prototype; a dedicated Vulkan backend still
+needs implementation.
+
+Official UI reference used for feature names and interaction:
+[PS5 features](https://www.playstation.com/en-th/ps5/ps5-features/),
+[Control Center](https://www.playstation.com/en-gb/support/games/customize-ps5-control-center/),
+and [Welcome hub](https://www.playstation.com/en-us/support/account/welcome-hub/).
+These pages document behavior but do not provide measured design tokens or
+component geometry. The official video linked by the features page is
+<https://www.youtube.com/watch?v=wLUvxgY2wd8>; its video content has not been
+frame-analyzed for this implementation.
+
 ## Open research questions
 
 - Exact roles and dependencies of `SceShellUI.elf`; no reliable evidence
@@ -80,6 +140,8 @@ sections' pixel-level structure is **unknown**.
 - Sony Support, Control Center: <https://www.playstation.com/en-gb/support/games/customize-ps5-control-center/>
 - Sony Support, Welcome hub: <https://www.playstation.com/en-us/support/account/welcome-hub/>
 - Sony, PS5 features: <https://www.playstation.com/en-th/ps5/ps5-features/>
+- Sony, Welcome Hub screenshot in the September 2024 system update announcement:
+  <https://blog.playstation.com/tachyon/2024/09/2424168de190dae0ea094bf824184b7ec6c53e77.jpg?fit=1024%2C1024>
 - PlayStation Blog, Welcome hub system update (2024-09-12):
   <https://blog.playstation.com/2024/09/12/ps5-system-update-adds-welcome-hub-party-share-personalized-3d-audio-profiles-adaptive-controller-charging-and-more/>
 - PlayStation Blog, PS5 Ultimate FAQ (2020-11-09, later updated):

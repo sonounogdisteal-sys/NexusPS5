@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install graphical dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libsdl2-dev libsdl2-ttf-dev fonts-dejavu-core
       - name: Configure
         run: cmake -S . -B build -DBUILD_TESTING=ON
       - name: Build
